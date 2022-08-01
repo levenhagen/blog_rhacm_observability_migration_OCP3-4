@@ -12,7 +12,7 @@ Regardless, most organizations will follow a similar migration journey, as below
 <img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/migration-journey-OCP3-4.png" width="1000">
 
 ## Migration considerations
-When it comes to migration concerns, cluster administrators will have to analyze storage, networking, authentication and a few other components, throughout all the steps of this journey defined above, in order to successfully migrate. Next section will explain how Red Hat Advanced Cluster Management can help. We’ll focus on the Setup and Certification and make sure we have a nice environment setup to certify the migration process.
+When it comes to migration concerns, cluster administrators will have to analyze storage, networking, authentication and a few other components, throughout all the steps of this journey defined above, in order to successfully migrate. Next section will explain how Red Hat Advanced Cluster Management can help. We’ll focus on the **Setup and Certification** and make sure we have a nice environment setup to certify the migration process.
 
 ### Environment Specifications
 - Red Hat OpenShift Container Platform 4.11
