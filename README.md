@@ -15,7 +15,24 @@ Regardless, most organizations will follow a similar migration journey, as below
 When it comes to migration concerns, cluster administrators will have to analyze storage, networking, authentication and a few other components, throughout all the steps of this journey defined above, in order to successfully migrate. Next section will explain how Red Hat Advanced Cluster Management can help. We’ll focus on the **Setup and Certification** and make sure we have a nice environment setup to certify the migration process.
 
 ### Environment Specifications
+As mentioned previously, we’re going to make use of an OpenShift Cluster with RHACM installed, and having the source and target clusters as managed clusters. The environment used in our example has the following specifications:
 - Red Hat OpenShift Container Platform 4.11
-  -  3 Control Plane Nodes (CPU: ,RAM: )
-  -  3 Compute Nodes (CPU: ,RAM: )
+  - 3 Control Plane Nodes (vCPU 4 ,RAM 16GB)
+  - 3 Compute Nodes (CPU 4,RAM 16GB)
+  - At least  one ```Storageclass``` defined
 - Red Hat Advanced Cluster Management 2.5.1
+- S3-compatible Object Store
+
+## Installing the Multicluster Observability add-on
+When installing the RHACM operator, you will get some observability right away - you get the Search capability and it provides an overview page that shows some dials and details about managed components. This includes an add-on (search-collector) that runs on the managed cluster and it collects kubernetes resources (CRDs, secrets, kinds, pods, storage, etc, just all the 'raw' resources that are in a cluster) and allows the user to search through these things across-clusters.  This is enabled by default, out of the box.
+
+Multicluster Observability, which we mean in this case specifically the platform metrics and alerts, is not turned on by default on the ACM hub. It requires the user to configure an objectStorage and have that ready for Thanos to store all cluster platform metrics into.
+
+Hence, the bullet point here that we are commenting on, this is included with RHACM but still must be turned on first, and that’s what we’re going to do now.
+
+On your ACM Hub Cluster, run this to create a project:
+```
+$ oc create namespace open-cluster-management-observability
+```
+
+To be continued...
