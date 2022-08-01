@@ -1,7 +1,6 @@
 # Leveraging the RHACM Observability to support OCP3 to OCP4.x migration
 by Luiz Bernardo Levenhagen
 
-## Overview 
 Since its release back in 2015, OpenShift Container Platform 3 gained a lot of traction in the market, with more than more than 1,000 organizations across industries and around the world making some use of it.
 With OpenShift Container Platform 3, administrators individually deployed Red Hat Enterprise Linux (RHEL) hosts, and then installed OpenShift Container Platform on top of these hosts to form a Kubernetes cluster. Administrators were responsible for properly configuring these hosts and performing updates.
 
@@ -13,6 +12,10 @@ Regardless, most organizations will follow a similar migration journey, as below
 <img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/migration-journey-OCP3-4.png" width="1000">
 
 ## Migration considerations
-When it comes to migration concerns, cluster administrators will have to analyze storage, networking, authentication and a few other components in order to successfully migrate.
-…
-Next sections will explain how Red Hat Advanced Cluster Management can help.
+When it comes to migration concerns, cluster administrators will have to analyze storage, networking, authentication and a few other components, throughout all the steps of this journey defined above, in order to successfully migrate. Next section will explain how Red Hat Advanced Cluster Management can help. We’ll focus on the Setup and Certification and make sure we have a nice environment setup to certify the migration process.
+
+### Environment Specifications
+- Red Hat OpenShift Container Platform 4.11
+  -  3 Control Plane Nodes (CPU: ,RAM: )
+  -  3 Compute Nodes (CPU: ,RAM: )
+- Red Hat Advanced Cluster Management 2.5.1
