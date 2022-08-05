@@ -35,4 +35,52 @@ On your ACM Hub Cluster, run this to create a project:
 $ oc create namespace open-cluster-management-observability
 ```
 
-To be continued...
+After successfully creating the namespace, you’ll need your pull-secret. You can get it from your account in cloud.redhat.com or extract it from the openshift-config namespace as below:
+
+```
+DOCKER_CONFIG_JSON=`oc extract secret/pull-secret -n openshift-config --to=-`
+```
+
+Copy the pull-secret from the openshift-config namespace into the open-cluster-management-observability namespace. Run the following command:
+
+```
+oc create secret generic multiclusterhub-operator-pull-secret -n open-cluster-management-observability --from-literal=.dockerconfigjson="$DOCKER_CONFIG_JSON" --type=kubernetes.io/dockerconfigjson
+```
+
+With this, observability components in this namespace have credentials that are used for accessing needed images in the registry. Now it’s time to generate our S3-compatible ObjectStore. In this example, like stated before, we’ll be using AWS S3. In the RHACM Web Console, click on the “+” sign on the top bar, and add this to create the secret which Thanos will consume as an S3 resource:
+
+```
+apiVersion: v1
+kind: Secret
+metadata:
+  name: thanos-object-storage
+  namespace: open-cluster-management-observability
+type: Opaque
+stringData:
+  thanos.yaml: |
+    type: s3
+    config:
+      bucket: YOUR_S3_BUCKET
+      endpoint: s3.amazonaws.com
+      insecure: false
+      access_key: YOUR_ACCESS_KEY
+      secret_key: YOUR_SECRET_KEY
+```
+
+We’re now ready to finally enable the MultiCluster Obersavility add-on. On the Installed Operators tab, click on the RHACM operator, navigate to MultiClusterObservability and hit **Create instance**:
+
+<img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/operator-page.png" width="1000">
+
+If everything went correctly, you will be able to see this Grafana option in the RHACM Overview page:
+
+<img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/rhacm-overview-page.png" width="1000">
+
+## Import Source and Target Clusters
+
+… to be continued ...
+
+## Building custom dashboards to visualize high-level indicators of migration health
+
+… to be continued ...
+
+## Further recommended practices and conclusion
