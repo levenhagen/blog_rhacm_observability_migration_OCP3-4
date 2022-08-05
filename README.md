@@ -69,7 +69,7 @@ stringData:
 
 We’re now ready to finally enable the MultiCluster Obersavility add-on. On the Installed Operators tab, click on the RHACM operator, navigate to MultiClusterObservability and hit **Create instance**:
 
-<img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/operator-page.png" width="1000">
+<img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/rhacm-operator-page.png" width="1000">
 
 If everything went correctly, you will be able to see this Grafana option in the RHACM Overview page:
 
