@@ -44,7 +44,7 @@ DOCKER_CONFIG_JSON=`oc extract secret/pull-secret -n openshift-config --to=-`
 Copy the pull-secret from the openshift-config namespace into the open-cluster-management-observability namespace. Run the following command:
 
 ```
-oc create secret generic multiclusterhub-operator-pull-secret -n open-cluster-management-observability 
+oc create secret generic multiclusterhub-operator-pull-secret -n open-cluster-management-observability \
 --from-literal=.dockerconfigjson="$DOCKER_CONFIG_JSON" --type=kubernetes.io/dockerconfigjson
 ```
 
