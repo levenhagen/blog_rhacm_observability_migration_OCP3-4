@@ -44,7 +44,8 @@ DOCKER_CONFIG_JSON=`oc extract secret/pull-secret -n openshift-config --to=-`
 Copy the pull-secret from the openshift-config namespace into the open-cluster-management-observability namespace. Run the following command:
 
 ```
-oc create secret generic multiclusterhub-operator-pull-secret -n open-cluster-management-observability --from-literal=.dockerconfigjson="$DOCKER_CONFIG_JSON" --type=kubernetes.io/dockerconfigjson
+oc create secret generic multiclusterhub-operator-pull-secret -n open-cluster-management-observability \
+--from-literal=.dockerconfigjson="$DOCKER_CONFIG_JSON" --type=kubernetes.io/dockerconfigjson
 ```
 
 With this, observability components in this namespace have credentials that are used for accessing needed images in the registry. Now it’s time to generate our S3-compatible ObjectStore. In this example, like stated before, we’ll be using AWS S3. In the RHACM Web Console, click on the “+” sign on the top bar, and add this to create the secret which Thanos will consume as an S3 resource:
