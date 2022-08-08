@@ -77,7 +77,19 @@ If everything went correctly, you will be able to see this Grafana option in the
 
 ## Import Source and Target Clusters
 
-… to be continued ...
+One of the greatest values that RHACM brings into this migration process, is the actual capability of managing both source and target clusters in many ways. One of them is really having them displayed in the Clusters view and making sure they are connected (with the ready✅ status) to the hub cluster. In our example below, the target cluster will be a OCP v4.10 cluster called **aws-management-1** and source cluster will be a OCP v3.11 cluster named **ocp3-11**.
+
+<img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/ocp3-11-and-OCP4-clusters-view.png" width="1000">
+
+**Note:** For importing a cluster that was not created by Red Hat OpenShift Container Platform, you need a **multiclusterhub.spec.imagePullSecret** defined. Check your MultiClusterHub CR from your RHACM installation to check if this field is set or follow [these steps](https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.5/html/install/installing#custom-image-pull-secret)  for steps on how to define the pull-secret.
+
+Assuming you already have your OpenShift clusters 3 up and running, in this same Clusters view, click on **Import cluster** to import the source cluster. You’ll be prompted to give it a name, a clusterSet(arbitrary) which you can leave it empty as it’ll not be useful for now, and the **Import mode**: you can choose to either run commands manually via oc/CLI, pasting the kubeconfig file or entering URL and API token, as shown below:
+
+<img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/rhacm-import-mode-options.png" width="1000">
+
+Select what’s most convenient for you and in a few minutes you cluster will be fully imported in the **Clusters view**. As you can see, it's a very straight-forward process. You can follow these same steps for importing source and target clusters.
+In the case that you don’t have a fully setup OCP4 cluster up and running, RHACM can also help spin up a new one to migrate your workloads from OCP3. Try hitting **Create cluster** on that same **Clusters view** and RHACM will display a bunch of options to guide you create your own OCP4 cluster interactively and very easily. Keep in mind that it’ll require credentials to the infrastructure provider for this automated installation. You can set up these credentials in the **Credentials view** on the left side bar. Also, see [here](https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.5/html/clusters/managing-your-clusters#creating-a-cluster) the list of supported infrastructure providers for this capability.
+
 
 ## Building custom dashboards to visualize high-level indicators of migration health
 
