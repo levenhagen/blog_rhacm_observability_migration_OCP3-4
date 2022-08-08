@@ -93,6 +93,17 @@ In the case that you don’t have a fully setup OCP4 cluster up and running, RHA
 
 ## Building custom dashboards to visualize high-level indicators of migration health
 
-… to be continued ...
+…
+
+_This section will introduce how to create customized dashboards to check for overall clusters health and also check for essential components for a OCP3->4 migration.
+It’ll also provide a json file that users can import via configmap to the observability component, and they’ll be able to have an example dashboard and go from there_
+<<Grafana-Dashboard.json and ScreenShot>>
+… 
+
 
 ## Further recommended practices and conclusion
+Regardless if you’re using CI/CD to move your applications artifacts, and your workloads are just a click away from being placed in the target cluster or if you’ll need a bunch of the other tooling to successfully migrate, the goal here was to introduce RHACM and its flexible Observability component, where it can definitely help you certify that your environments are compatible with your migration strategy. 
+
+The Grafana dashboard above will basically serve as an entrypoint for using customized dashboards for better visualization, but the sky is the limit for adjusting these visualizations to better serve your needs. Check [RHACM docs](https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.5/html/observability/observing-environments-intro) with the possibility of creating custom metrics, predefined rules and times of data collection for better resource consumption and configurable search. More than just providing monitoring for K8s resources, RHACM teams up with this Thanos + Prometheus + Grafana setup to give you a nice way to be alerted of misused and/or failed components and help you with root cause analysis, if needed. 
+
+Check [MTC Docs](https://docs.openshift.com/container-platform/4.10/migration_toolkit_for_containers/about-mtc.html) and our [Migration webpage](https://www.redhat.com/en/technologies/cloud-computing/openshift/migrating) for more insights and requirements regarding networking, storage and other computing resources for a successful migration. Red Hat Training also provides a course to get your teams sharp on migration from OCP3 to OCP4 - [DO328](https://www.redhat.com/en/services/training/do326-red-hat-openshift-migration-lab). Reach out to the Sales team if interested.
