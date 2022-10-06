@@ -98,6 +98,8 @@ In the case that you don’t have a fully setup OCP4 cluster up and running, RHA
 _This section will introduce how to create customized dashboards to check for overall clusters health and also check for essential components for a OCP3->4 migration.
 It’ll also provide a json file that users can import via configmap to the observability component, and they’ll be able to have an example dashboard and go from there_
 <<Grafana-Dashboard.json and ScreenShot>>
+
+<img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/ocp311.gif" width="1000">
 … 
 
 
