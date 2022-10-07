@@ -9,7 +9,7 @@ During Red Hat Summit 2019, OpenShift Container Platform 4 was introduced and pr
 Despiste the ease of setup and day-2 configurations from OCP4, upgrading from 3.x to 4.x is not available and users must spin up a new installation of OpenShift Container Platform 4. Hence, migrating workloads from OpenShift 3 to OpenShift 4 requires some planning and possibly additional tooling, depending on the situation. Ideally, organizations could redeploy applications to the new environment making use of their CI/CD pipeline and subsequently copying any persistent volume data. If the latter is not an option, Red Hat also provides a solution called Migration Toolkit for Containers, which we’ll talk more about in a moment. 
 Regardless, most organizations will follow a similar migration journey, as below:
 
-<img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/migration-journey-OCP3-4.png" width="1000">
+<img src="./images/migration-journey-OCP3-4.png" width="1000">
 
 ## Migration considerations
 When it comes to migration concerns, cluster administrators will have to analyze storage, networking, authentication and a few other components, throughout all the steps of this journey defined above, in order to successfully migrate. In the next section, I will explain how Red Hat Advanced Cluster Management can help. We’ll focus on the **Setup and Certification** and make sure we have a nice environment setup to certify the migration process.
@@ -69,23 +69,23 @@ stringData:
 
 We’re now ready to finally enable the MultiCluster Obersavility add-on. On the Installed Operators tab, click on the RHACM operator, navigate to MultiClusterObservability and hit **Create instance**:
 
-<img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/rhacm-operator-page.png" width="1000">
+<img src="./images/rhacm-operator-page.png" width="1000">
 
 If everything goes smoothly, you will be able to see this *Grafana* link in the RHACM Overview page:
 
-<img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/rhacm-overview-page.png" width="1000">
+<img src="./images/rhacm-overview-page.png" width="1000">
 
 ## Import Source and Target Clusters
 
 One of the greatest values that RHACM brings into this migration process is the ability of managing both source and target clusters in various ways. The first step is really a central inventory of clusters and being able to display all of them in the Clusters view and making sure they are connected (with the ready✅ status) to the hub cluster. In our example below, the target cluster will be a OCP v4.10 cluster called **aws-management-1** and source cluster will be a OCP v3.11 cluster named **ocp3-11**.
 
-<img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/ocp3-11-and-OCP4-clusters-view.png" width="1000">
+<img src="./images/ocp3-11-and-OCP4-clusters-view.png" width="1000">
 
 **Note:** For importing a cluster that was not created by Red Hat OpenShift Container Platform, you need a **multiclusterhub.spec.imagePullSecret** defined. Check your MultiClusterHub CR from your RHACM installation to check if this field is set or follow [these steps](https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.6/html/install/installing#custom-image-pull-secret) for steps on how to define the pull-secret.
 
 Assuming you already have your OpenShift clusters 3 up and running, in this same Clusters view, click on **Import cluster** to import the source cluster. You’ll be prompted to give it a name, a clusterSet (optional for RBAC scenarios) which you can leave it empty as it’ll not be useful for now, and the **Import mode**: choose to run commands manually via oc/CLI for your OpenShift 3.
 
-<img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/rhacm-import-mode-options.png" width="1000">
+<img src="./images/rhacm-import-mode-options.png" width="1000">
 
 Select what’s most convenient for you and in a few minutes you cluster will be fully imported in the **Clusters view**. As you can see, it's a very straight-forward process. You can follow these same steps for importing source and target clusters.
 In the case that you don’t have a fully setup OCP4 cluster up and running, RHACM can also help spin up a new one to migrate your workloads from OCP3. Try hitting **Create cluster** on that same **Clusters view** and RHACM will display a bunch of options to guide you create your own OCP4 cluster interactively and very easily. Keep in mind that it’ll require credentials to the infrastructure provider for this automated installation. You can set up these credentials in the **Credentials view** on the left side bar. Also, see [here](https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.6/html/multicluster_engine/multicluster_engine_overview#creating-a-cluster) the list of supported infrastructure providers for this capability.
@@ -95,7 +95,7 @@ In the case that you don’t have a fully setup OCP4 cluster up and running, RHA
 
 As soon as you get you clusters and the Grafana instance up and running, RHACM provides immediate value for the 3->4 migration path. When accessing the Grafana link in the Overview screen, navigate to the left sidebar menu and click on **Search Dashboards**(magnifying glass icon). Notice there's a folder specifically for OCP3 metrics, where the Observability component will be able to deliver out-of-the-box OCP3 dashboards that we ship as an overview of what the customer can immediately start to observe, as illustrated below. 
 
-<img src="https://github.com/levenhagen/blog_rhacm_observability_migration_OCP3-4/blob/main/ocp311.gif" width="1000">
+<img src="./images/ocp311.gif" width="1000">
 
 This Grafana dashboard above will basically serve as an entrypoint for using customized dashboards for better visualization, but the sky is the limit for adjusting these visualizations to better serve your needs. Check [RHACM docs](https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.6/html/observability/observing-environments-intro) with the possibility of creating custom dashboards, custom metrics, predefined rules and times of data collection for better resource consumption and configurable search. More than just providing monitoring for K8s resources, RHACM teams up with this Thanos + Prometheus + Grafana setup to give you a nice way to be alerted of misused and/or failed components and help you with root cause analysis, if needed. 
 
